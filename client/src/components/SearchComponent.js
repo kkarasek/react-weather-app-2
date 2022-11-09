@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logo from '../assets/perfect-day.svg';
+import logo from '../assets/icons/perfect-day.svg';
 
-const WeatherLogo = styled.img`
+const WeatherIcon = styled.img`
 	width: 140px;
 	height: 140px;
+	margin: 25px auto;
 `;
 
 const SearchLocationLabel = styled.span`
@@ -15,7 +16,6 @@ const SearchLocationLabel = styled.span`
 
 const SearchBox = styled.form`
 	display: flex;
-	flex-direction: row;
 	border: solid 1px;
 	border-radius: 2px;
 	margin: 20px auto;
@@ -40,17 +40,20 @@ const SearchBox = styled.form`
 	}
 `;
 
-const CitySearch = () => {
+const SearchComponent = ({ setLocation, getData }) => {
 	return (
 		<>
-			<WeatherLogo src={logo} alt="weather-logo" />
+			<WeatherIcon src={logo} alt="weather-icon" />
 			<SearchLocationLabel>Search Location</SearchLocationLabel>
-			<SearchBox>
-				<input placeholder="City" />
-				<button>Search</button>
+			<SearchBox onSubmit={getData}>
+				<input
+					placeholder="City"
+					onChange={(evt) => setLocation(evt.target.value)}
+				/>
+				<button type="submit">Search</button>
 			</SearchBox>
 		</>
 	);
 };
 
-export default CitySearch;
+export default SearchComponent;

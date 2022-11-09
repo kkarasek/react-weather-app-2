@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import axios from 'axios';
 
-import CitySearch from './components/CitySearch';
-import WeatherDisplay from './components/WeatherDisplay';
+import SearchComponent from './components/SearchComponent';
+import WeatherDisplay from './components/DisplayComponent';
+import { useState } from 'react';
+
+const { REACT_APP_API_KEY } = process.env;
 
 const Container = styled.div`
 	display: flex;
@@ -21,10 +25,29 @@ const AppTitle = styled.span`
 `;
 
 const App = () => {
+	const [location, setLocation] = useState('');
+	const [data, setData] = useState('');
+
+	const getData = async (evt) => {
+		evt.preventDefault();
+		const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${REACT_APP_API_KEY}&units=metric`;
+		try {
+			const response = await axios(url);
+			console.log(response.data);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const check = () => {
+		console.log(location);
+	};
+
 	return (
 		<Container>
 			<AppTitle>Weather App</AppTitle>
-			<CitySearch />
+			<SearchComponent setLocation={setLocation} getData={getData} />
+			<button onClick={check}>Check</button>
 		</Container>
 	);
 };
