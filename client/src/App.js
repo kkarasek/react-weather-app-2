@@ -17,25 +17,14 @@ const Container = styled.div`
 
 const AppTitle = styled.span`
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 24px;
 `;
-
-// const CitySearch = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// `;
-
-// const WeatherDisplay = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// `;
 
 const App = () => {
 	return (
 		<Container>
 			<AppTitle>Weather App</AppTitle>
 			<CitySearch />
-			<WeatherDisplay />
 		</Container>
 	);
 };
