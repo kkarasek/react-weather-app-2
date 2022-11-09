@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import CitySearch from './components/CitySearch';
+import WeatherDisplay from './components/WeatherDisplay';
+
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -17,22 +20,22 @@ const AppTitle = styled.span`
 	font-size: 18px;
 `;
 
-const CitySearch = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+// const CitySearch = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// `;
 
-const WeatherDisplay = styled.div`
-	display: flex;
-	flex-direction: column;
-`;
+// const WeatherDisplay = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// `;
 
 const App = () => {
 	return (
 		<Container>
 			<AppTitle>Weather App</AppTitle>
-			<CitySearch>City Search</CitySearch>
-			<WeatherDisplay>Weather Info</WeatherDisplay>
+			<CitySearch />
+			<WeatherDisplay />
 		</Container>
 	);
 };
