@@ -97,7 +97,7 @@ const WeatherDisplay = ({ data }) => {
 		<>
 			<WeatherConditionContainer>
 				<WeatherDescription>
-					<span>{data.main.temp}</span> | {data.weather[0].main}
+					<span>{data.main.temp} °C </span> | {data.weather[0].main}
 				</WeatherDescription>
 				<WeatherIcon
 					src={WeatherIcons[data.weather[0].icon]}
