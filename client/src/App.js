@@ -34,20 +34,20 @@ const App = () => {
 		try {
 			const response = await axios(url);
 			console.log(response.data);
+			setData(response.data);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	const check = () => {
-		console.log(location);
-	};
-
 	return (
 		<Container>
 			<AppTitle>Weather App</AppTitle>
-			<SearchComponent setLocation={setLocation} getData={getData} />
-			<button onClick={check}>Check</button>
+			{data ? (
+				<WeatherDisplay data={data} />
+			) : (
+				<SearchComponent setLocation={setLocation} getData={getData} />
+			)}
 		</Container>
 	);
 };

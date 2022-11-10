@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logo from '../assets/icons/perfect-day.svg';
-import { WeatherInfoIcons } from '../model/WeatherIcons';
+import { WeatherIcons } from '../model/WeatherIcons';
+import { WeatherInfoIcons } from '../model/WeatherInfoIcons';
 
 const WeatherConditionContainer = styled.div`
 	width: 100%;
@@ -83,22 +83,43 @@ const WeatherInfoComponent = ({ name, value }) => {
 	);
 };
 
-const WeatherDisplay = () => {
+const WeatherDisplay = ({ data }) => {
+	const isDay = data.weather[0].icon?.includes('d');
+
+	const getTime = (timeStamp) => {
+		const hour = new Date(timeStamp * 1000).getHours();
+		const minutes = new Date(timeStamp * 1000).getMinutes();
+		return `${hour < 10 ? '0' + hour : hour}:${
+			minutes < 10 ? '0' + minutes : minutes
+		}`;
+	};
 	return (
 		<>
 			<WeatherConditionContainer>
 				<WeatherDescription>
-					<span>30 °C</span> | Cloudy
+					<span>{data.main.temp}</span> | {data.weather[0].main}
 				</WeatherDescription>
-				<WeatherIcon src={logo} alt="weather-icon" />
+				<WeatherIcon
+					src={WeatherIcons[data.weather[0].icon]}
+					alt="weather-icon"
+				/>
 			</WeatherConditionContainer>
-			<Location>Berlin, DE</Location>
+			<Location>{`${data.name}, ${data.sys.country}`}</Location>
 			<WeatherInfoContainer>
 				<WeatherInfoLabel>Weather Info</WeatherInfoLabel>
-				<WeatherInfoComponent name="sunrise" value="19:37" />
-				<WeatherInfoComponent name="humidity" value="" />
-				<WeatherInfoComponent name="wind" value="" />
-				<WeatherInfoComponent name="pressure" value="" />
+				<WeatherInfoComponent
+					name={isDay ? 'sunset' : 'sunrise'}
+					value={getTime(data.sys[isDay ? 'sunset' : 'sunrise'])}
+				/>
+				<WeatherInfoComponent
+					name="humidity"
+					value={`${data.main.humidity} %`}
+				/>
+				<WeatherInfoComponent name="wind" value={`${data.wind.speed} m/s`} />
+				<WeatherInfoComponent
+					name="pressure"
+					value={`${data.main.pressure} hPa`}
+				/>
 			</WeatherInfoContainer>
 		</>
 	);
